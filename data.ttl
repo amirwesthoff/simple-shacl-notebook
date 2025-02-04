@@ -1,0 +1,18 @@
+prefix ex: <http://www.example.com/> 
+prefix xsd: <http://www.w3.org/2001/XMLSchema#>
+prefix sh: <http://www.w3.org/ns/shacl#>
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+ex:Alice
+	a ex:Person ;
+	ex:ssn "987-65-432A" . # violates the regex pattern 
+  
+ex:Bob
+	a ex:Person ;
+	ex:ssn "123-45-6789" ; 
+	ex:ssn "124-35-6789" . # violates the maximum amount of having this attribute
+  
+ex:Calvin
+	a ex:Person ;
+	ex:birthDate "1971-07-07"^^xsd:date ; # violates the closed shape
+	ex:worksFor ex:UntypedCompany . # violates the shape that requires this resource is of type ex:Company

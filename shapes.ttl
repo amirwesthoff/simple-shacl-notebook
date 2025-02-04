@@ -1,0 +1,21 @@
+prefix ex: <http://www.example.com/> 
+prefix xsd: <http://www.w3.org/2001/XMLSchema#>
+prefix sh: <http://www.w3.org/ns/shacl#>
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+ex:PersonShape
+	a sh:NodeShape ;
+	sh:targetClass ex:Person ;    # this line specifies that instances of this class should be targeted
+	sh:property [       # this notation indicates a blank node for a property shape, specified on lines 10-13          
+		sh:path ex:ssn ;          
+		sh:maxCount 1 ;
+		sh:datatype xsd:string ;
+		sh:pattern "^\\d{3}-\\d{2}-\\d{4}$" ;
+	] ;
+	sh:property [                
+		sh:path ex:worksFor ;
+		sh:class ex:Company ;
+		sh:nodeKind sh:IRI ;
+	] ;
+	sh:closed true ;
+	sh:ignoredProperties ( rdf:type ) .
